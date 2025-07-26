@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import struct
 
-from minestom.PacketType import *
+from pystom.PacketType import *
 
 
 @dataclass

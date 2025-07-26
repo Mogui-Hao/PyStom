@@ -1,6 +1,6 @@
 import struct
 from nbtlib import Compound, String, Long, List
-from minestom.PacketType import encode_varint
+from pystom.PacketType import encode_varint
 
 
 def create_simple_chunk_data(chunk_x: int, chunk_z: int, biome_id: int = 0) -> bytes:

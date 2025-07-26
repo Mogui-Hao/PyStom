@@ -1,5 +1,4 @@
 import sys
-import threading
 import inspect
 from datetime import datetime
 from enum import Enum, unique

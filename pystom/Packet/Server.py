@@ -5,10 +5,10 @@ from uuid import UUID, uuid3
 
 from nbtlib import Compound
 
-from minestom.Minecraft import MinecraftConfig, GameMode
-from minestom.MinecraftType import *
-from minestom.Packet.PacketBase import ServerPacket
-from minestom.PacketType import encode_string, encode_varint, encode_bytes, serialize_nbt
+from pystom.Minecraft import MinecraftConfig, GameMode
+from pystom.MinecraftType import *
+from pystom.Packet.PacketBase import ServerPacket
+from pystom.PacketType import encode_string, encode_varint, encode_bytes, serialize_nbt
 
 
 @dataclass

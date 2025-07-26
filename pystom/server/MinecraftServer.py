@@ -6,12 +6,12 @@ import uuid
 import zlib
 from threading import Thread
 
-from minestom.Minecraft import MinecraftConfig
-from minestom.Packet import *
-from minestom.Packet.PacketBase import ServerPacket
-from minestom.PacketType import decode_varint, encode_varint, encode_string
-from minestom.logging import Logging
-from minestom.utils import create_simple_heightmap, create_simple_chunk_data
+from pystom.Minecraft import MinecraftConfig
+from pystom.Packet import *
+from pystom.Packet.PacketBase import ServerPacket
+from pystom.PacketType import decode_varint, encode_varint, encode_string
+from pystom.logging import Logging
+from pystom.utils import create_simple_heightmap, create_simple_chunk_data
 
 def DataFormat(data):
     return ' '.join([data.hex().upper()[i:i+2] for i in range(0, len(data.hex().upper()), 2)])

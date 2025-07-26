@@ -1,8 +1,8 @@
-from minestom.Minecraft import MinecraftStatus
-# from minestom.Packet.Client import (ClientHandshakingPacket, ClientStatusRequestPacket, ClientStatusPingPacket,
+from pystom.Minecraft import MinecraftStatus
+# from pystom.Packet.Client import (ClientHandshakingPacket, ClientStatusRequestPacket, ClientStatusPingPacket,
 #                                     ClientLoginRequest)
-from minestom.Packet.Client import *
-from minestom.PacketType import varint_length, decode_varint
+from pystom.Packet.Client import *
+from pystom.PacketType import varint_length, decode_varint
 
 
 def parser_packet(data: bytes, status: MinecraftStatus):

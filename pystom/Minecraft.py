@@ -2,9 +2,10 @@
 from dataclasses import dataclass
 from enum import Enum, unique
 
+
 @dataclass
 class MinecraftConfig:
-    version: str = "1.21.4"
+    version: str = "1.21.6"
     versionProtocol: int = 771
     maxPlayers: int = 20
     description: str = "A Python Minecraft Server"

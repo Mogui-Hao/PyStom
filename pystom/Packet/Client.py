@@ -1,9 +1,9 @@
 import struct
 from dataclasses import dataclass
 
-from minestom.Minecraft import MinecraftStatus
-from minestom.Packet.PacketBase import ClientPacket
-from minestom.PacketType import decode_varint, varint_length
+from pystom.Minecraft import MinecraftStatus
+from pystom.Packet.PacketBase import ClientPacket
+from pystom.PacketType import decode_varint, varint_length
 
 
 @dataclass
