@@ -24,6 +24,10 @@ class MinecraftServer:
         self._threshold = -1
         self.logger = Logging()
 
+    def configuration(self, _c: socket.socket):
+        self._send(_c, 0x07, ServerConfigurationRegistryDataPack())
+        self.play(_c)
+
     def play(self, _c: socket.socket):
         try:
             # 发送加入游戏包
@@ -184,8 +188,8 @@ class MinecraftServer:
             length = encode_varint(len(data))
             data = length + zlib.compress(data, level=-1)
         _socket.send(encode_varint(len(data)) + data)
-        print(f"长度值: {encode_varint(len(data))} 实际数据: {data}")
         time.sleep(0.1)
+        print(f"S2C PacketId: {data[0]} Length: {encode_varint(len(data))} Bytes: {data}")
         return encode_varint(len(data)) + data
 
     def client(self, _client: socket.socket, addr: tuple[str, int]):
@@ -209,7 +213,7 @@ class MinecraftServer:
                     self._send(_client, 0x03, ServerSetCompressionPacket(self._threshold))  # 发送压缩阈值包
                 self._send(_client, 0x02, ServerLoginSuccessPacket(packet.player_name))  #  发送登录成功包
                 # status = MinecraftStatus.PLAY
-                Thread(target=self.play, args=(_client,)).start()  # 开登录函数
+                Thread(target=self.configuration, args=(_client,)).start()  # 开登录函数
                 # print("成功登录")
                 return
 

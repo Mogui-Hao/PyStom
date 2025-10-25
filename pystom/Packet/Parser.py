@@ -6,6 +6,7 @@ from pystom.PacketType import varint_length, decode_varint
 
 
 def parser_packet(data: bytes, status: MinecraftStatus):
+    print(f"C2S Status: {status} - {data.hex()}")
     match status:
         case MinecraftStatus.HANDSHAKING:
             match decode_varint(data, 0):

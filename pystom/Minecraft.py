@@ -5,7 +5,7 @@ from enum import Enum, unique
 
 @dataclass
 class MinecraftConfig:
-    version: str = "1.21.6"
+    version: str = "Python 3.13 - 1.21.x"
     versionProtocol: int = 771
     maxPlayers: int = 20
     description: str = "A Python Minecraft Server"

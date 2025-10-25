@@ -3,13 +3,11 @@ import struct
 from dataclasses import field, dataclass
 from uuid import UUID, uuid3
 
-from nbtlib import Compound
-
 from pystom.Minecraft import MinecraftConfig, GameMode
 from pystom.MinecraftType import *
 from pystom.Packet.PacketBase import ServerPacket
 from pystom.PacketType import encode_string, encode_varint, encode_bytes, serialize_nbt
-
+from pystom.MinecraftType.nbt import *
 
 @dataclass
 class ServerStatusResponsePacket(ServerPacket):
@@ -33,6 +31,61 @@ class ServerLoginSuccessPacket(ServerPacket):
         return encode_bytes(uuid3(
                 UUID('00000000-0000-0000-0000-000000000000'),
                 f"OfflinePlayer:{self.player_name}").bytes) + encode_string(self.player_name)
+
+@dataclass
+class ServerConfigurationRegistryDataPack(ServerPacket):
+
+    @property
+    def to_bytes(self) -> bytes:
+        data = Compound("",
+                        Compound(
+                            "minecraft:dimension_type",
+                            String("type", "minecraft:dimension_type"),
+                            List("value", [
+                                Compound("",
+                                         String("id", "minecraft:overworld"),
+                                         Compound("element",
+                                                  Byte("piglin_safe", 0),  # false -> 0
+                                                  Byte("natural", 1),  # true -> 1
+                                                  Float("ambient_light", 0.0),
+                                                  Long("fixed_time", 0),
+                                                  String("infiniburn", "#minecraft:infiniburn_overworld"),
+                                                  Byte("respawn_anchor_works", 0),  # false -> 0
+                                                  Byte("has_skylight", 1),  # true -> 1
+                                                  Byte("bed_works", 1),  # true -> 1
+                                                  String("effects", "minecraft:overworld"),
+                                                  Byte("has_raids", 1),  # true -> 1
+                                                  Int("min_y", -64),
+                                                  Int("height", 384),
+                                                  Int("logical_height", 384),
+                                                  Double("coordinate_scale", 1.0),
+                                                  Byte("ultrawarm", 0),  # false -> 0
+                                                  Byte("has_ceiling", 0)  # false -> 0
+                                                  )
+                                         )
+                            ])
+                        ),
+                        Compound(
+                            "minecraft:worldgen/biome",
+                            String("type", "minecraft:worldgen/biome"),
+                            List("value", [
+                                Compound("",
+                                         String("id", "minecraft:plains"),
+                                         Compound("element",
+                                                  String("precipitation", "rain"),
+                                                  Float("temperature", 0.8),
+                                                  Float("downfall", 0.4),
+                                                  Compound("effects",
+                                                           Int("sky_color", 7907327),
+                                                           Int("fog_color", 12638463),
+                                                           Int("water_color", 4159204),
+                                                           Int("water_fog_color", 329011)
+                                                           )
+                                                  )
+                                         )
+                            ])
+                        ))
+        return serialize(data)
 
 @dataclass
 class ServerSetCompressionPacket(ServerPacket):
